@@ -48,6 +48,37 @@ class Pay::Test < ActiveSupport::TestCase
     assert Pay.respond_to?(:enabled_processors=)
   end
 
+  test "can set stripe_api_version" do
+    assert Pay.respond_to?(:stripe_api_version)
+    assert Pay.respond_to?(:stripe_api_version=)
+    assert_nil Pay.stripe_api_version
+  end
+
+  test "stripe_api_version is applied during setup" do
+    original = Pay.stripe_api_version
+    original_stripe_version = ::Stripe.api_version
+
+    Pay.stripe_api_version = "2025-03-31.basil"
+    Pay::Stripe.setup
+    assert_equal "2025-03-31.basil", ::Stripe.api_version
+  ensure
+    Pay.stripe_api_version = original
+    ::Stripe.api_version = original_stripe_version
+  end
+
+  test "stripe_api_version is not set when nil" do
+    original = Pay.stripe_api_version
+    original_stripe_version = ::Stripe.api_version
+
+    Pay.stripe_api_version = nil
+    ::Stripe.api_version = "2024-01-01"
+    Pay::Stripe.setup
+    assert_equal "2024-01-01", ::Stripe.api_version
+  ensure
+    Pay.stripe_api_version = original
+    ::Stripe.api_version = original_stripe_version
+  end
+
   test "parent_mailer config" do
     assert Pay.respond_to?(:parent_mailer=)
     assert Pay.respond_to?(:parent_mailer)

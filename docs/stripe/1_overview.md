@@ -5,6 +5,16 @@ Stripe has multiple options for payments
 * [Stripe Checkout](https://stripe.com/payments/checkout) - Hosted pages for payments (you'll redirect users to Stripe)
 * [Stripe Elements](https://stripe.com/payments/elements) - Payment fields on your site
 
+## Stripe API Version
+
+By default, Pay uses the Stripe gem's default API version. To pin a specific version or opt into beta features (like Stripe's Managed payments), set the API version in your Pay initializer:
+
+```ruby
+Pay.setup do |config|
+  config.stripe_api_version = "2026-02-25.preview"
+end
+```
+
 ## Prices & Plans
 
 Stripe introduced Products & Prices to support more payment options. Previously, they had a concept called Plan that was for subscriptions. Pay supports both `Price IDs` and `Plan IDs` when subscribing.
