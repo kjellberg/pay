@@ -140,6 +140,10 @@ Pay.setup do |config|
   # All processors are enabled by default. If a processor is already implemented in your application, you can omit it from this list and the processor will not be set up through the Pay gem.
   config.enabled_processors = [:stripe, :braintree, :paddle_billing, :paddle_classic, :lemon_squeezy]
 
+  # Optionally set the Stripe API version to enable beta features (e.g. "2025-03-31.basil")
+  # When not set, the Stripe gem's default API version is used.
+  # config.stripe_api_version = "2026-02-25.preview"
+
   # To disable all emails, set the following configuration option to false:
   config.send_emails = true
 

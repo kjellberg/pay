@@ -56,6 +56,8 @@ module Pay
   mattr_accessor :routes_path
   @@routes_path = "/pay"
 
+  mattr_accessor :stripe_api_version
+
   mattr_accessor :enabled_processors
   @@enabled_processors = [:stripe, :braintree, :paddle_billing, :paddle_classic, :lemon_squeezy]
 
